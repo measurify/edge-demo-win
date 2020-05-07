@@ -1,0 +1,4 @@
+library_windows/out
+example/.vscode
+example/main.exe
+example/execute.bat
