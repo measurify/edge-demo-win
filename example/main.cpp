@@ -1,8 +1,11 @@
 #include <EdgeEngine_library.h>
 #include <time.h>
+#include <windows.h>
+#include <tchar.h>
 
 using std::vector;
 using std::string;
+
 
 bool testTemp = false;
 clock_t cycleCounter;
@@ -14,11 +17,31 @@ edgine* Edge;
 connection_windows* Connection;
 vector<sample*> samples;
 
-float getTemperature(){
-  if(testTemp)
-    return 24.0F;
-  else
-    return 24.5F;
+float getRAMinfo(){
+    MEMORYSTATUSEX memInfo;
+    memInfo.dwLength = sizeof(MEMORYSTATUSEX);
+    GlobalMemoryStatusEx(&memInfo);
+    DWORDLONG totalPhysMem = memInfo.ullTotalPhys;
+    cout << "Total RAM installed: ";
+    cout << totalPhysMem;
+    cout << " B" << endl;
+    DWORDLONG physMemUsed = memInfo.ullTotalPhys - memInfo.ullAvailPhys;
+    cout << "Total RAM currently used: ";
+    cout << physMemUsed;
+    cout << " B" << endl;
+    return 3;
+}
+
+void getROMinfo(){
+    unsigned __int64 i64FreeBytesToCaller, i64TotalBytes, i64FreeBytes;
+    GetDiskFreeSpaceExW(NULL, (PULARGE_INTEGER)&i64FreeBytesToCaller, (PULARGE_INTEGER)&i64TotalBytes,
+                    (PULARGE_INTEGER)&i64FreeBytes);
+    cout << "Total space: ";
+    cout << i64TotalBytes;
+    cout << " B" << endl;
+    cout << "Free space available: ";
+    cout <<  i64FreeBytes;
+    cout << " B" << endl;
 }
 
 void setup() {
@@ -54,7 +77,7 @@ void action() {
     temperature->startDate = Edge->Api->getActualDate();
     temperature->endDate = temperature->startDate;
     testTemp = !testTemp;
-    temperature->value = getTemperature();
+    temperature->value = getRAMinfo();
     samples.push_back(temperature);
 
     Edge->evaluate(samples);
@@ -73,6 +96,8 @@ void action() {
 }
 
 int main() {
-    setup();
-    action();
+    // setup();
+    // action();
+    getRAMinfo();
+    getROMinfo();
 }
