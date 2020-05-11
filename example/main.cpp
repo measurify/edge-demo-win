@@ -10,6 +10,9 @@ using std::string;
 bool testTemp = false;
 clock_t cycleCounter;
 clock_t sleepTime;
+int conversionFactor = 1024*1024*1024;
+
+float totalRAM,freeRAM, totalROM, freeROM;
 
 sample* temperature = NULL;
 
@@ -17,31 +20,34 @@ edgine* Edge;
 connection_windows* Connection;
 vector<sample*> samples;
 
-float getRAMinfo(){
+void getRAMinfo(){
     MEMORYSTATUSEX memInfo;
     memInfo.dwLength = sizeof(MEMORYSTATUSEX);
     GlobalMemoryStatusEx(&memInfo);
     DWORDLONG totalPhysMem = memInfo.ullTotalPhys;
+    totalRAM = ((float)(totalPhysMem))/conversionFactor;
     cout << "Total RAM installed: ";
-    cout << totalPhysMem;
-    cout << " B" << endl;
+    cout << totalRAM;
+    cout << " GB" << endl;
     DWORDLONG physMemUsed = memInfo.ullTotalPhys - memInfo.ullAvailPhys;
+    freeRAM = ((float)(physMemUsed))/conversionFactor;
     cout << "Total RAM currently used: ";
-    cout << physMemUsed;
-    cout << " B" << endl;
-    return 3;
+    cout << freeRAM;
+    cout << " GB" << endl;
 }
 
 void getROMinfo(){
     unsigned __int64 i64FreeBytesToCaller, i64TotalBytes, i64FreeBytes;
     GetDiskFreeSpaceExW(NULL, (PULARGE_INTEGER)&i64FreeBytesToCaller, (PULARGE_INTEGER)&i64TotalBytes,
                     (PULARGE_INTEGER)&i64FreeBytes);
+    totalROM = ((float)(i64TotalBytes))/conversionFactor;
     cout << "Total space: ";
-    cout << i64TotalBytes;
-    cout << " B" << endl;
+    cout << totalROM;
+    cout << " GB" << endl;
+    freeROM = ((float)(i64FreeBytes))/conversionFactor;
     cout << "Free space available: ";
-    cout <<  i64FreeBytes;
-    cout << " B" << endl;
+    cout <<  freeROM;
+    cout << " GB" << endl;
 }
 
 void setup() {
@@ -77,7 +83,7 @@ void action() {
     temperature->startDate = Edge->Api->getActualDate();
     temperature->endDate = temperature->startDate;
     testTemp = !testTemp;
-    temperature->value = getRAMinfo();
+    temperature->value = NULL;
     samples.push_back(temperature);
 
     Edge->evaluate(samples);
