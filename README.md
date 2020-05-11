@@ -7,6 +7,11 @@
 ## Overview
 This demo is based on [edge](https://github.com/Measurify/edge), a generic runtime system capable of processing data flows collected by sensors attached to a device through scripts.
 ## How to use
+=======
+##Overview
+This demo is based on [edge](https://github.com/Measurify/edge), a generic runtime system capable of processing data flows collected by sensors attached to a device through scripts.
+##How to use
+>>>>>>> c199cd30b674de52092a02aa7cb9da1cd96d728b
 This library requirements are listed on the [edge guide](https://github.com/Measurify/edge#windows). After you ensured your system satisfies all the prerequisites you can start using this demo.
 Here you have a sample compile command:
 ```
