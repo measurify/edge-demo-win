@@ -30,6 +30,7 @@ Four features are fetched:
 - **RAM currently available**
 - **Total ROM installed**
 - **ROM currently available**
+
 The functions used to collect these data are _getRAMinfo()_ and _getROMinfo()_:
 ```
 void getRAMinfo(){
