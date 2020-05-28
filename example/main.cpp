@@ -10,6 +10,7 @@ using std::string;
 clock_t cycleCounter;
 clock_t sleepTime;
 int conversionFactor = 1024*1024*1024;
+int loopCount = 1; //number of iterations, to be adjusted
 
 float totalRAM,freeRAM, totalROM, freeROM;
 
@@ -135,10 +136,8 @@ void action() {
 
 int main() {
     setup();
-    for(int i=0;i<1;i++)
+    for(int i=0;i<loopCount;i++)
     {
         action();
     }
-    // getRAMinfo();
-    // getROMinfo();
 }
