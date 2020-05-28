@@ -7,14 +7,16 @@ using std::vector;
 using std::string;
 
 
-bool testTemp = false;
 clock_t cycleCounter;
 clock_t sleepTime;
 int conversionFactor = 1024*1024*1024;
 
 float totalRAM,freeRAM, totalROM, freeROM;
 
-sample* temperature = NULL;
+sample* totalRAMSample = NULL;
+sample* totalROMSample = NULL;
+sample* availableRAMSample = NULL;
+sample* availableROMSample = NULL;
 
 edgine* Edge;
 connection_windows* Connection;
@@ -55,8 +57,8 @@ void setup() {
     Connection = connection_windows::getInstance();
     options opts;
     //login
-    opts.username = "riccardo-office-temperature-sensor-username";
-    opts.password =  "riccardo-office-temperature-sensor-password";
+    opts.username = "pc-sensor-username";
+    opts.password =  "pc-sensor-password";
     //route
     opts.url = "http://students.atmosphere.tools";
     opts.ver = "v1";
@@ -67,9 +69,9 @@ void setup() {
     opts.info= "info";
     opts.issues="issues";
     //Edgine identifiers
-    opts.thing = "riccardo-office";
-    opts.device = "environment-riccardo-office";
-    opts.id = "environment-riccardo-office";
+    opts.thing = "my-pc";
+    opts.device = "pc-probe";
+    opts.id = "pc-probe";
     //initialize Edge engine
     Edge = edgine::getInstance();
     Edge->init(opts);
@@ -78,20 +80,50 @@ void setup() {
 void action() {
     cycleCounter = clock();
 
-    //create a temperature measurement sample
-    temperature = new sample("temperature");
-    temperature->startDate = Edge->Api->getActualDate();
-    temperature->endDate = temperature->startDate;
-    testTemp = !testTemp;
-    temperature->value = NULL;
-    samples.push_back(temperature);
+    
+    getRAMinfo();
+    getROMinfo();
+
+    //create a RAM & ROM measurement sample
+    totalRAMSample = new sample("total-ram");
+    totalRAMSample->startDate = Edge->Api->getActualDate();
+    totalRAMSample->endDate = totalRAMSample->startDate;
+    totalRAMSample->value = totalRAM;
+    samples.push_back(totalRAMSample);
+
+    availableRAMSample = new sample("available-ram");
+    availableRAMSample->startDate = Edge->Api->getActualDate();
+    availableRAMSample->endDate = availableRAMSample->startDate;
+    availableRAMSample->value = freeRAM;
+    samples.push_back(availableRAMSample);
+
+    totalROMSample = new sample("total-rom");
+    totalROMSample->startDate = Edge->Api->getActualDate();
+    totalROMSample->endDate = totalROMSample->startDate;
+    totalROMSample->value = totalROM;
+    samples.push_back(totalROMSample);
+
+    availableROMSample = new sample("available-rom");
+    availableROMSample->startDate = Edge->Api->getActualDate();
+    availableROMSample->endDate = availableROMSample->startDate;
+    availableROMSample->value = freeROM;
+    samples.push_back(availableROMSample);
 
     Edge->evaluate(samples);
 
     samples.clear(); // after evaluated all samples delete them
 
-    delete temperature;
-    temperature = NULL;
+    delete totalRAMSample; 
+    totalRAMSample = NULL;
+
+    delete availableRAMSample;
+    availableRAMSample = NULL;
+
+    delete totalROMSample; 
+    totalROMSample = NULL;
+
+    delete availableROMSample;
+    availableROMSample = NULL;
 
     cycleCounter=clock()-cycleCounter;// duration of the execution of the cycle
 
@@ -102,8 +134,11 @@ void action() {
 }
 
 int main() {
-    // setup();
-    // action();
-    getRAMinfo();
-    getROMinfo();
+    setup();
+    for(int i=0;i<1;i++)
+    {
+        action();
+    }
+    // getRAMinfo();
+    // getROMinfo();
 }
