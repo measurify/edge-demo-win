@@ -71,7 +71,7 @@ class edgine{
   int period= 2;//5 seconds; interval between two loop execution: max speed of loop
   int retryTime=10; //retry every 10 seconds if the login or the first GETDescr/GETScript/GETDate fails
 
-  int scriptListMaxSize= 5; // max num of scripts in the engine 
+  int scriptListMaxSize= 10; // max num of scripts in the engine 
   int measurementBufferSize= 20; // max num of measurements saved if their POST falis
   int issueBufferSize= 20; // max num of issues saved if their POST falis
   int sendBufferSize= 20; // max num of measurements in a batch 
