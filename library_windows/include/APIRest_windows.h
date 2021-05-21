@@ -12,7 +12,7 @@
 #include <Poco/Exception.h>
 #include <Poco/StreamCopier.h>
 #include <iostream>
-#include <sample.h>
+#include "sample.h"
 #include <vector>
 using std::vector;
 #include <string>

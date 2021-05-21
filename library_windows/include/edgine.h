@@ -6,14 +6,14 @@
 #ifndef edgine_h
 #define edgine_h
 
-#include <myDefines.h>
+#include "myDefines.h"
 
 #ifdef ARDUINO
 #include "APIRest.h" // API wrapper
 #include "connection.h" // connection wrapper
 #else
-#include <APIRest_windows.h>
-#include <connection_windows.h>
+#include "APIRest_windows.h"
+#include "connection_windows.h"
 #endif
 
 #include <vector>
@@ -72,7 +72,7 @@ class edgine{
   int period= 2;//5 seconds; interval between two loop execution: max speed of loop
   int retryTime=10; //retry every 10 seconds if the login or the first GETDescr/GETScript/GETDate fails
 
-  int scriptListMaxSize= 10; // max num of scripts in the engine 
+  int scriptListMaxSize= 5; // max num of scripts in the engine 
   int measurementBufferSize= 20; // max num of measurements saved if their POST falis
   int issueBufferSize= 20; // max num of issues saved if their POST falis
   int sendBufferSize= 20; // max num of measurements in a batch 

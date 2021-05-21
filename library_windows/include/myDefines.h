@@ -1,8 +1,11 @@
 #ifndef myDefines_h
 #define myDefines_h
 
-#ifndef ARDUINO
+// #ifndef ARDUINO
 // #define ARDUINO
-#endif
+// #endif
+// #ifndef ESP_WROVER
+// #define ESP_WROVER
+// #endif
 
 #endif

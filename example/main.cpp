@@ -61,7 +61,7 @@ void setup() {
     opts.username = "pc-sensor-username";
     opts.password =  "pc-sensor-password";
     //route
-    opts.url = "http://students.atmosphere.tools";
+    opts.url = "https://students.atmosphere.tools";
     opts.ver = "v1";
     opts.login = "login";
     opts.devs = "devices";
