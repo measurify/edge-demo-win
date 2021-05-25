@@ -14,14 +14,15 @@ Here you have a sample compile command:
 main.cpp
 -o
 main.exe
--Ipath\to\repository\library_windows\include"
+-Ipath\to\repository\library_windows\include
 -Ipath\to\msys64\mingw64\include
--Lpath\to\repository\library_windows\lib"
--Lpath\to\msys64\mingw64\lib"
--lEdgine"
--lPocoFoundation"
--lPocoUtil"
--lPocoNet" 
+-Lpath\to\repository\library_windows\lib
+-Lpath\to\msys64\mingw64\lib
+-lEdgine
+-lPocoFoundation
+-lPocoUtil
+-lPocoNet
+-lPocoNetSSL
 ``` 
 ## Code
 The example taken into consideration is based on Windows machines and it retrieves data from the computer in use.

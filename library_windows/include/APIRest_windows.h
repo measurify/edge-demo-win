@@ -5,6 +5,13 @@
 // #include <Poco/Net/HTTPResponse.h>
 #define POCO_WIN32_UTF8
 #include <Poco/Net/HTTPClientSession.h>
+
+#include <Poco/Net/HTTPSClientSession.h>
+#include <Poco/Net/SSLManager.h>
+#include <Poco/Net/AcceptCertificateHandler.h>
+#include <Poco/Net/Context.h>
+#include <Poco/Net/SecureStreamSocket.h>
+
 #include <Poco/Net/HTTPRequest.h>
 #include <Poco/Net/HTTPResponse.h>
 #include <Poco/Path.h>
